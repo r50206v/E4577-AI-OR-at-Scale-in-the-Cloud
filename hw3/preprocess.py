@@ -1,14 +1,15 @@
 import re
+import os
+import pickle
 import pandas as pd
 import preprocessor as p
 
 import nltk
-nltk.download("stopwords")
-from nltk.corpus import stopwords
 from nltk.tokenize import TweetTokenizer
 
 
-stop_words = set(stopwords.words('english'))
+with open(os.getcwd() + '/stopwords.json', 'rb') as f:
+    stop_words = pickle.load(f)
 tknzr = TweetTokenizer(reduce_len=True, strip_handles=True)
 
 def clean_text(t):
@@ -32,14 +33,14 @@ def tokenize_text(t, tokenizer=None, stop_words=None):
         tknzr = TweetTokenizer(reduce_len=True, strip_handles=True)
         
     if not stop_words:
-        from nltk.corpus import stopwords
-        stop_words = set(stopwords.words('english'))
+        with open(os.getcwd() + '/stopwords.json', 'rb') as f:
+            stop_words = pickle.load(f)
 
     tList = [i for i in tokenizer.tokenize(t) if i not in stop_words]
     return tList
 
 
-def replace_token_with_index(tList):
+# def replace_token_with_index(tList):
     
 
 
