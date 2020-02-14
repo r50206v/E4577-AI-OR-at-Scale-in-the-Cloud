@@ -24,7 +24,7 @@ def clean_text(t):
     t = p.clean(t)
     t = re.sub(r"[\\//_,;.:*+\-\>\<)(%^$|~&`'\"\[\]\=]+", '', t)
     t = re.sub(r'[^\x00-\x7F]+',' ', t)
-    return t
+    return t.lower()
 
 
 def tokenize_text(t, tokenizer=None, stop_words=None):
@@ -40,10 +40,33 @@ def tokenize_text(t, tokenizer=None, stop_words=None):
     return tList
 
 
-# def replace_token_with_index(tList):
+def load_embeding(path, max_length_dictionary=10000):
+    embeddings_dict = {}
+    i = 0
+    
+    with open(path, 'r') as f:
+        for line in f:
+            values = line.split()
+            if values[0].isalnum():
+                embeddings_dict[ values[0] ] = i
+                i += 1
+
+            if i == max_length_dictionary:
+                break
+                
+    return embeddings_dict
+
+
+def replace_token_with_index(tList, embeddingMap):
+    tNewList = []
+    for t in tList:
+        # if t is not in EmbeddingMap continue the loop
+        indice = embeddingMap.get(t)
+        if not indice:
+            continue
+        else:
+            tNewList.append(indice)
+    return tNewList
     
 
 
-import os
-df = pd.read_csv(os.getcwd() + '/eng_twitter.csv')
-print(df['text'].iloc[:3].apply(lambda x: tokenize_text(clean_text(x), tokenizer=tknzr, stop_words=stop_words)).values.tolist())
