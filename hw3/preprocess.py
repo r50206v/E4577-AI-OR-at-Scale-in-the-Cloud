@@ -42,14 +42,7 @@ def clean_text(t):
     return t.lower()
 
 
-def tokenize_text(t, tokenizer=None, stop_words=None):
-    if not tokenizer:
-        from nltk.tokenize import TweetTokenizer
-        tknzr = TweetTokenizer(reduce_len=True, strip_handles=True)
-        
-    if not stop_words:
-        with open(os.getcwd() + '/stopwords.json', 'rb') as f:
-            stop_words = pickle.load(f)
+def tokenize_text(t, tokenizer=tknzr, stop_words=stop_words):
     """
     tokenize preprocessed tweets
 
