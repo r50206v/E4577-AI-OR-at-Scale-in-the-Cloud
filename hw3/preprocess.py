@@ -109,3 +109,26 @@ def replace_token_with_index(tList, embeddingMap):
         else:
             tNewList.append(indice)
     return tNewList
+
+
+def pad_sequence(tList, max_length_tweet=10):
+    """
+    construct pad sequence
+    
+    Arguments:
+        tList {[list of int]} -- output from replace_token_with_index
+    
+    Keyword Arguments:
+        max_length_tweet {int} -- the maximum length of tweet (default: {10})
+    
+    Returns:
+        [list of int] -- return pad sequence list
+    """    
+    reLength = max_length_tweet - len(tList)
+    
+    if reLength > 0:
+        tList.extend([0] * reLength)
+    elif reLength < 0:
+        tList = tList[:max_length_tweet]
+        
+    return tList
