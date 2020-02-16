@@ -4,6 +4,9 @@ python: 3.7
 install:
 - pip install -r requirements.txt
 
+before_script:
+  - pylint --version
+
 script:
-- pytest
-- pylint
+- pytest --disable-warnings
+- pylint src/preprocess.py
