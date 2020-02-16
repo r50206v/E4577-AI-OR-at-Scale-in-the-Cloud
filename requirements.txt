@@ -3,3 +3,5 @@ numpy
 tweet-preprocessor
 nltk
 pylint
+pytest
+pytest-cov

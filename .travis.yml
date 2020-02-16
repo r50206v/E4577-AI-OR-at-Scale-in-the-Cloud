@@ -6,7 +6,8 @@ install:
 
 before_script:
   - pylint --version
+  - pytest --version
 
 script:
-- pytest --disable-warnings
+- pytest --disable-warnings --cov=src/
 - pylint src/preprocess.py

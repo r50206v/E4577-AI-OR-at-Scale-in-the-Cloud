@@ -1,4 +1,6 @@
-# pylint: disable=E1101
+"""[summary]
+this module provide preprocessing functions for analyzing tweet
+"""
 import re
 import os
 import pickle
@@ -58,7 +60,7 @@ def tokenize_text(t, tokenizer=tknzr, stop_words=stop_words):
 
 def load_embedding(path, max_length_dictionary=10000):
     """
-    load embedding map 
+    load embedding map
 
     Arguments:
         path {[str]} -- the absolute path of where embedding map is
@@ -100,9 +102,7 @@ def replace_token_with_index(tList, embeddingMap):
     for t in tList:
         # if t is not in EmbeddingMap continue the loop
         indice = embeddingMap.get(t)
-        if not indice:
-            continue
-        else:
+        if indice:
             tNewList.append(indice)
     return tNewList
 
