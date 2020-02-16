@@ -1,12 +1,8 @@
 # pylint: disable=E1101
-
 import re
 import os
 import pickle
-import pandas as pd
 import preprocessor as p
-
-import nltk
 from nltk.tokenize import TweetTokenizer
 
 
@@ -92,14 +88,14 @@ def load_embedding(path, max_length_dictionary=10000):
 def replace_token_with_index(tList, embeddingMap):
     """
     replace token with index in embedding map
-    
+
     Arguments:
         tList {[list of str]} -- the output from tokenize_text
         embeddingMap {[dict]} -- the output from load_embedding or a self-defined dictionary
-    
+
     Returns:
         [list of int] -- replace the tokens with index, ex. [1, 892, 3, 2467]
-    """    
+    """
     tNewList = []
     for t in tList:
         # if t is not in EmbeddingMap continue the loop
@@ -114,21 +110,21 @@ def replace_token_with_index(tList, embeddingMap):
 def pad_sequence(tList, max_length_tweet=10):
     """
     construct pad sequence
-    
+
     Arguments:
         tList {[list of int]} -- output from replace_token_with_index
-    
+
     Keyword Arguments:
         max_length_tweet {int} -- the maximum length of tweet (default: {10})
-    
+
     Returns:
         [list of int] -- return pad sequence list
-    """    
+    """
     reLength = max_length_tweet - len(tList)
-    
+
     if reLength > 0:
         tList.extend([0] * reLength)
     elif reLength < 0:
         tList = tList[:max_length_tweet]
-        
+
     return tList
