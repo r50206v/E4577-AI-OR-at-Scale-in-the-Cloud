@@ -96,6 +96,21 @@ class Preprocessor(object):
         embeddings_dict = {}
         i = 0
 
+        if ".zip/" in file_path:
+            archive_path = os.path.abspath(file_path)
+            split = archive_path.split(".zip/")
+            archive_path = split[0] + ".zip" 
+            path_inside = split[1]
+            archive = zipfile.ZipFile(archive_path, "r")
+            embeddings = archive.read(path_inside).decode("utf8").split("\n")
+            for i, words in enumerate(embeddings):
+                embeddings_dict[words] = i
+
+                if i == max_length_dictionary:
+                    break
+            return embeddings_dict
+            
+
         with open(path, 'r') as f:
             for line in f:
                 values = line.split()
