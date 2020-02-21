@@ -1,6 +1,9 @@
 import os
 import unittest
-from preprocess import clean_text, tokenize_text, load_embedding, replace_token_with_index, pad_sequence
+from preprocess import Preprocessor
+
+path = os.getcwd() + "/glove_twitter/glove_twitter_200d_clean.txt"
+preprocessor = Preprocessor(path=path, max_length_dictionary=None)
 
 
 class tweet_test(unittest.TestCase):
@@ -10,31 +13,30 @@ class tweet_test(unittest.TestCase):
 
     def test_clean(self):
         expected_result = " we met"
-        result = clean_text(self.text)
+        result = preprocessor.clean_text(self.text)
         self.assertEqual(result, expected_result)
 
     def test_tokenizer(self):
         expected_result = ['met']
-        result_1 = tokenize_text(clean_text(self.text))
+        result_1 = preprocessor.tokenize_text(preprocessor.clean_text(self.text))
         self.assertEqual(result_1, expected_result)
 
     def test_replace(self):
-        path = os.getcwd() + "/glove_twitter/glove_twitter_200d_clean.txt"
-        embeddingMap = load_embedding(path=path, max_length_dictionary=None)
         expected_result = [517]
-        result_2 = replace_token_with_index(
-            tokenize_text(clean_text(self.text)), embeddingMap
+        result_2 = preprocessor.replace_token_with_index(
+            preprocessor.tokenize_text(preprocessor.clean_text(self.text)), preprocessor.embeddingMap
         )
-
         self.assertEqual(result_2, expected_result)
 
     def test_padsequence(self):
-        path = os.getcwd() + "/glove_twitter/glove_twitter_200d_clean.txt"
-        embeddingMap = load_embedding(path=path, max_length_dictionary=None)
         expected_result = [517, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        result_3 = pad_sequence(replace_token_with_index(
-            tokenize_text(clean_text(self.text)), embeddingMap)
+        result_3 = preprocessor.pad_sequence(preprocessor.replace_token_with_index(
+            preprocessor.tokenize_text(preprocessor.clean_text(self.text)), preprocessor.embeddingMap)
         )
+        self.assertEqual(result_3, expected_result)
+        self.assertEqual(result_3, expected_result)
 
-        self.assertEqual(result_3, expected_result)
-        self.assertEqual(result_3, expected_result)
+    def test_pipeline(self):
+        expected_result = [517, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        result_4 = preprocessor.pipeline(self.text)
+        self.assertEqual(result_4, expected_result)
