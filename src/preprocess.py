@@ -4,6 +4,7 @@ this module provide preprocessing functions for analyzing tweet
 import re
 import os
 import pickle
+import zipfile36 as zipfile
 import preprocessor as p
 from nltk.tokenize import TweetTokenizer
 
