@@ -5,6 +5,6 @@ python3 -W ignore model_training/sentiment_training.py \
 --validation /home/jovyan/work/E4577-AI-OR-at-Scale-in-the-Cloud/dataset/dev/ \
 --eval /home/jovyan/work/E4577-AI-OR-at-Scale-in-the-Cloud/dataset/eval/ \
 --model_output_dir /home/jovyan/work/E4577-AI-OR-at-Scale-in-the-Cloud/model_output/ \
---num_epoch 20 \
+--num_epoch 100 \
 --config_file /home/jovyan/work/E4577-AI-OR-at-Scale-in-the-Cloud/model_training/training_config.json
 ```
