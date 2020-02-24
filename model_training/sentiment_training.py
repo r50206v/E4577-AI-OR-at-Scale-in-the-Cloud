@@ -8,6 +8,7 @@ Author pharnoux
 
 import os
 import argparse
+import datetime
 import sentiment_dataset as sentiment_dataset
 import sentiment_model_cnn as sentiment_model_cnn
 import config_holder as config_holder
@@ -44,7 +45,10 @@ def main(args):
     print("Test loss:{}".format(score[0]))
     print("Test accuracy:{}".format(score[1]))
 
-    sentiment_model_cnn.save_model(model, os.path.join(args.model_output_dir, "sentiment_model.h5"))
+    sentiment_model_cnn.save_model(
+        model,
+        os.path.join(args.model_output_dir, "sentiment_model_%s.h5" % datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    )
 
 def get_arg_parser():
     """
