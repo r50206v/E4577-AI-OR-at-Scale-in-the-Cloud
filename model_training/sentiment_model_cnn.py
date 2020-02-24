@@ -45,8 +45,7 @@ def keras_model_fn(_, config):
         output_dim, 
         weights=[embedding_matrix], 
         input_length=input_length, 
-        trainable=True,
-        name="embedding_layer"
+        trainable=True
     ))
     model.add(tf.keras.layers.Conv1D(100, 2, strides=1, padding='valid', activation='relu'))
     model.add(tf.keras.layers.GlobalMaxPool1D())
@@ -65,7 +64,6 @@ def save_model(model, output):
 
 
     """
-
-    tf.saved_model.save(model, os.path.join(output, "1"))
+    model.save(output)
 
     print("Model successfully saved at: {}".format(output))
