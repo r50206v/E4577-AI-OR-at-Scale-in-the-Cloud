@@ -3,6 +3,6 @@
     "embeddings_vector_size": 25,
     "padding_size": 100,
     "batch_size": 100,
-    "embeddings_path": "/Users/tsengyiping/Docker/jupyter/E4577-AI-OR-at-Scale-in-the-Cloud/glove_twitter/glove.twitter.27B.25d.txt",
+    "embeddings_path": "/home/jovyan/work/E4577-AI-OR-at-Scale-in-the-Cloud/glove_twitter/glove.twitter.27B.25d.txt",
     "input_tensor_name": "embedding_input"
 }
