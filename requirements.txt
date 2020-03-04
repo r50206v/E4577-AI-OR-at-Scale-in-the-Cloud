@@ -1,5 +1,4 @@
 pandas
-numpy
 tweet-preprocessor
 nltk
 zipfile36
